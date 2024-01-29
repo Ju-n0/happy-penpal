@@ -6,6 +6,20 @@ body {
   font-family: "Poiret One", sans-serif;
 }
 
+h1 {
+  font-weight: 700;
+  font-size: 3rem;
+  text-align: center;
+  padding-block: 3rem;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 1.75rem;
+  text-align: center;
+  padding-block: 1.25rem;
+}
+
 aside {
   display: flex;
   flex-direction: column;
@@ -48,4 +62,87 @@ aside ul a {
 
 main {
   padding-left: 22rem;
+}
+
+.first-profile-part {
+  gap: 2rem;
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  height: 30rem;
+}
+.first-profile-part-leftside {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2rem;
+  border-radius: 5px;
+  box-shadow: #5353538b 1px 1px 5px;
+  background-color: #73e8b1c7;
+  height: 90%;
+  width: 50%;
+}
+
+.first-profile-part-leftside .profile-picture {
+  margin: 1.5rem;
+  border: #000 solid 4px;
+  width: 20rem;
+  object-fit: cover;
+}
+.ul-first-profile-part {
+  font-size: 1.5rem;
+  padding-block: 1.5rem;
+}
+
+.ul-first-profile-part li {
+  padding-block: 1rem;
+}
+
+.ul-first-profile-part #username {
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.languages-ul {
+  list-style: circle;
+  line-height: 0.5;
+  padding-block: 0.5rem;
+  padding-left: 2rem;
+}
+.first-profile-part-rightside {
+  margin-top: 2rem;
+  border-radius: 5px;
+  box-shadow: #5353538b 1px 1px 5px;
+  background-color: #73e8e4c7;
+  height: 90%;
+  width: 50%;
+}
+
+.intro-title {
+  font-weight: 700;
+}
+
+.intro-content {
+  padding: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.second-profile-part {
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: #5353538b 1px 1px 5px;
+  margin-top: 2rem;
+  background-color: #b28cedc7;
+  height: 30rem;
+  width: 90%;
+}
+
+.question {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding-block: 1rem;
+}
+
+.answer {
+  font-size: 1.25rem;
+  padding-block: 1rem;
 }
