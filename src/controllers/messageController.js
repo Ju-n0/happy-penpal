@@ -1,5 +1,5 @@
 const messageController = {
-  async index(req, res) {
+  async getAll(req, res) {
     res.render("messages");
   },
 };
