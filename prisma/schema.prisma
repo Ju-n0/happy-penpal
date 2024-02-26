@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  username     String    @unique @db.VarChar(50)
+  password     String
+  email        String    @unique @db.VarChar(255)
+  gender       String
+  country      String    @db.VarChar(50)
+  presentation String?
+  picture      String?
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime? @map("updated_at")
+
+  posts            Post[]
+  sentMessages     Message[]  @relation("sentMessages")
+  receivedMessages Message[]  @relation("receivedMessages")
+  languages        Language[]
+
+  @@map("users")
+}
+
+model Message {
+  id          Int       @id @default(autoincrement())
+  senderId    Int       @map("sender_id")
+  sender      User      @relation("sentMessages", fields: [senderId], references: [id])
+  recipientId Int       @map("recipient_id")
+  recipient   User      @relation("receivedMessages", fields: [recipientId], references: [id])
+  content     String
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime? @map("updated_at")
+
+  @@map("messages")
+}
+
+model Post {
+  id            Int       @id @default(autoincrement())
+  title         String    @db.VarChar(255)
+  content       String
+  allowHomepage Boolean   @default(false) @map("allow_homepage")
+  publicatedAt  DateTime  @default(now()) @map("publicated_at")
+  authorId      Int       @map("author_id")
+  user          User      @relation(fields: [authorId], references: [id])
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime? @map("updated_at")
+
+  @@index([title])
+  @@map("posts")
+}
+
+model Language {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
+  speakers  User[]
+
+  @@index([name])
+  @@map("languages")
+}
