@@ -1,28 +1,37 @@
 <%- include('./partials/sides-bar.ejs') %>
 
 <main>
-  <h1>Welcome to Happy Penpal !</h1>
-  <h2>Actually, there are XXX users connected to our website</h2>
+  <h1>We're so happy to see you here !</h1>
 
-  <h3>Create Your Account</h3>
-  <form class="form" method="POST" action="/register">
-    <div class="form-group">
-      <input type="text" placeholder="Votre pseudo" name="username" />
-    </div>
+  <div class="login-content">
+    <div>
+      <h3 class="account-title">Create Your Account</h3>
+      <form class="login-form" method="POST" action="/register">
+        <div class="form-group">
+          <label for="username">Please enter your username</label>
+          <input type="text" name="username" />
+        </div>
 
-    <div class="form-group">
-      <input type="email" placeholder="Email Address" name="email" />
+        <div class="form-group">
+          <label for="email">Please enter your email</label>
+          <input type="email" name="email" />
+        </div>
+        <div class="form-group">
+          <label for="password">Please enter your password</label>
+          <input type="password" name="password" />
+        </div>
+        <div class="form-group">
+          <label for="password">Please confirm your password</label>
+          <input type="password" name="passwordConfirm" />
+        </div>
+        <button class="formButton">Register</button>
+      </form>
+      <p class="form-p">Already have an account? <a href="/">Sign In</a></p>
     </div>
-    <div class="form-group">
-      <input type="password" placeholder="Password" name="password" />
+    <div class="login-right-part">
+      <img class="friends-img" src="/images/friends.svg" alt="des amis de dos" />
     </div>
-    <div class="form-group">
-      <input type="password" placeholder="Confirm Password" name="passwordConfirm" />
-    </div>
-    <input type="submit" class="form-button" value="Register" />
-  </form>
-  <p>Already have an account? <a href="/">Sign In</a></p>
-  <img class="friends-img" src="/images/friends.svg" alt="des amis de dos" />
+  </div>
 </main>
 
 <%- include('./partials/footer.ejs') %>

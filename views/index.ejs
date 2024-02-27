@@ -2,20 +2,27 @@
 
 <main>
   <h1>Welcome to Happy Penpal !</h1>
-  <h2>Actually, there are XXX users connected to our website</h2>
 
-  <h3>Sign into Your Account</h3>
-  <form class="form" method="POST" action="/">
-    <div class="form-group">
-      <input type="email" placeholder="Email Address" name="email" required />
+  <div class="login-content">
+    <div>
+      <h3 class="account-title">Sign into Your Account</h3>
+      <form class="login-form" method="POST" action="/">
+        <div class="form-group">
+          <label for="email">Please enter your email</label>
+          <input type="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Please enter your password</label>
+          <input type="password" name="password" />
+        </div>
+        <button class="formButton">Login</button>
+      </form>
+      <p class="form-p">Don't have an account? <a href="/register">Sign Up</a></p>
     </div>
-    <div class="form-group">
-      <input type="password" placeholder="Password" name="password" />
+    <div class="login-right-part">
+      <img class="friends-img" src="/images/friends.svg" alt="des amis de dos" />
     </div>
-    <input type="submit" class="form-button" value="Login" />
-  </form>
-  <p>Don't have an account? <a href="/register">Sign Up</a></p>
-  <img class="friends-img" src="/images/friends.svg" alt="des amis de dos" />
+  </div>
 </main>
 
 <%- include('./partials/footer.ejs') %>
