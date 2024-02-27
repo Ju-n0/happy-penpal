@@ -3,34 +3,25 @@
 <main>
   <div class="first-profile-part">
     <div class="first-profile-part-leftside">
-      <img class="profile-picture" src="./images/chat.svg" alt="" />
+      <img class="profile-picture" src="/images/<%=user.picture%>" alt="" />
       <ul class="ul-first-profile-part">
         <li id="username"><%=user.username%></li>
-        <li>XX years old</li>
-        <li>Country</li>
+        <li><%= user.age %> years old</li>
+        <li><%= user.country %></li>
         <li>Last connexion</li>
         <li>
           Languages
           <ul class="languages-ul">
-            <li>french</li>
-            <li>english</li>
+            <% user.languages?.forEach(language => { %>
+            <li><%=language.name%></li>
+            <% }) %>
           </ul>
         </li>
       </ul>
     </div>
     <div class="first-profile-part-rightside">
       <h2 class="intro-title">Presentation</h2>
-      <p class="intro-content">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi maxime ipsum sunt
-        voluptatibus provident illo assumenda quae fuga debitis odio consequatur, maiores
-        repellendus sapiente iste at, non aliquid, esse itaque eos mollitia atque nemo ducimus?
-        Dolores eaque commodi maxime alias enim. Atque illo suscipit a perferendis eaque earum
-        deleniti quod praesentium expedita? Praesentium cum reiciendis non culpa voluptas officia,
-        provident perspiciatis quis quasi. Omnis minima totam aut suscipit, nemo cumque alias
-        aliquam sed maiores quisquam quas dolores sit doloribus culpa a provident architecto
-        laudantium eum autem mollitia, voluptates reprehenderit. Vero quod, laudantium dolore
-        consequuntur ullam libero explicabo assumenda.
-      </p>
+      <p class="intro-content"><%= user.presentation %></p>
     </div>
   </div>
   <div class="second-profile-part">

@@ -20,6 +20,7 @@ model User {
   email        String    @unique @db.VarChar(255)
   gender       String
   country      String    @db.VarChar(50)
+  birthdate    DateTime
   presentation String?
   picture      String?
   createdAt    DateTime  @default(now()) @map("created_at")
@@ -29,6 +30,7 @@ model User {
   sentMessages     Message[]  @relation("sentMessages")
   receivedMessages Message[]  @relation("receivedMessages")
   languages        Language[]
+  answersGiven     Answer[]   @relation("answersGiven")
 
   @@map("users")
 }
@@ -70,4 +72,29 @@ model Language {
 
   @@index([name])
   @@map("languages")
+}
+
+model Question {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
+  Answer    Answer[]
+
+  @@index([name])
+  @@map("questions")
+}
+
+model Answer {
+  id         Int       @id @default(autoincrement())
+  name       String    @unique
+  questionId Int       @map("question_id")
+  question   Question  @relation(fields: [questionId], references: [id])
+  answererId Int       @map("answerer_id")
+  user       User      @relation("answersGiven", fields: [answererId], references: [id])
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime? @map("updated_at")
+
+  @@index([name])
+  @@map("answers")
 }
