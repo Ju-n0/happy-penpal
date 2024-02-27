@@ -3,6 +3,7 @@ const path = require("node:path");
 const express = require("express");
 const app = express();
 const router = require("./src/router");
+const session = require("express-session");
 
 app.set("view engine", "ejs");
 
@@ -10,6 +11,17 @@ const viewsDirectory = path.join(__dirname, "./views");
 app.set("views", viewsDirectory);
 
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 1000 * 60 * 60,
+    },
+  })
+);
 
 app.use(router);
 

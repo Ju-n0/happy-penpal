@@ -25,25 +25,11 @@
     </div>
   </div>
   <div class="second-profile-part">
-    <strong class="question">What advice do you give to your love ones ? </strong>
-    <p class="answer">
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente similique iure iste
-      exercitationem sequi assumenda at dolorem vel cumque maxime accusamus tenetur voluptatem,
-      eveniet ipsa.
-    </p>
-    <strong class="question">What did you prefer before ? </strong>
-    <p class="answer">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas omnis tenetur vel id, cumque
-      eligendi error dolor nostrum? Sed, quod?
-    </p>
-    <strong class="question"> What makes you proud ? </strong>
-    <p class="answer">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque ullam dignissimos molestias
-      illum! Quibusdam dolores non id deserunt, tenetur nulla nostrum eveniet fuga sunt neque
-      dignissimos? Natus non voluptatum incidunt!
-    </p>
-    <strong class="question">Would you live in another country ? </strong>
-    <p class="answer">Lorem ipsum dolor sit amet, consectetur adipisicing elit.no</p>
+    <% answers.forEach(answer => { %>
+    <strong class="question"><%=answer.question.name%></strong>
+
+    <p class="answer"><%=answer.name%></p>
+    <% }) %>
   </div>
 </main>
 

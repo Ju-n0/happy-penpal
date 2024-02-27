@@ -1,5 +1,6 @@
 const { prismaClient } = require("../src/database");
 const faker = require("faker");
+const bcrypt = require("bcrypt");
 
 const messagesCount = 100;
 const languages = [
@@ -58,10 +59,10 @@ async function resetAnswers() {
 async function resetDB() {
   await resetMessages();
   await resetPosts();
-  await resetUsers();
   await resetLanguages();
-  await resetQuestions();
   await resetAnswers();
+  await resetQuestions();
+  await resetUsers();
 }
 
 async function seedUsers() {
@@ -74,7 +75,7 @@ async function seedUsers() {
 
     const user = {
       username: faker.internet.userName(firstName, lastName),
-      password: faker.datatype.string(),
+      password: await bcrypt.hash("1234", 12),
       email: faker.internet.email(firstName, lastName),
       gender,
       country: faker.address.country(),

@@ -4,14 +4,16 @@ const messageController = {
   async getOne(req, res) {
     const user = await prismaClient.user.findUnique({
       where: {
-        id: +req.params.id,
+        // id: +req.session.userId,
+        id: +1,
       },
       include: {
-        languages: true,
+        sentMessages: true,
+        receivedMessages: true,
       },
     });
-    res.render("profile", {
-      user: { ...user, age: dayjs().diff(user.birthdate, "year") },
+    res.render("messages", {
+      user: { user },
     });
   },
 };

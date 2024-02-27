@@ -12,8 +12,15 @@ const profileController = {
         languages: true,
       },
     });
+
+    const answers = await prismaClient.answer.findMany({
+      include: { question: true },
+      where: { answererId: user.id },
+    });
+
     res.render("profile", {
       user: { ...user, age: dayjs().diff(user.birthdate, "year") },
+      answers,
     });
   },
 };
