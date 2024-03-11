@@ -2,13 +2,18 @@ const { prismaClient } = require("../database");
 const dayjs = require("dayjs");
 const emailValidator = require("email-validator");
 dayjs.extend(require("dayjs/plugin/relativeTime"));
+const bcrypt = require("bcrypt");
 
 const registerController = {
   index(req, res) {
     res.render("register");
   },
   async register(req, res) {
-    const { username, email, password, passwordConfirm } = req.body;
+    const { username, gender, country, birthdate, email, password, passwordConfirm } = req.body;
+
+    if (!username || !gender || !country || !birthdate || !email || !password || !passwordConfirm) {
+      console.log("Veuillez remplir tous les champs");
+    }
 
     if (!emailValidator.validate(email)) {
       console.log("email invalide");
@@ -28,12 +33,17 @@ const registerController = {
     const hash = await bcrypt.hash(password, salt);
 
     await prismaClient.user.create({
-      username,
-      email: email,
-      password: hash,
+      data: {
+        username,
+        gender,
+        country,
+        birthdate: new Date(birthdate),
+        email: email,
+        password: hash,
+      },
     });
 
-    res.render("/", {
+    res.render("index", {
       message: "Vous pouvez maintenant vous connecter !",
     });
   },

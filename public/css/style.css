@@ -107,6 +107,8 @@ main {
   padding-top: 1.5rem;
   gap: 1rem;
 }
+
+.login-content select,
 .search-left-side select {
   font-size: 1.25rem;
 }
@@ -167,6 +169,13 @@ main {
 .intro-title,
 .message-left-part h2 {
   font-weight: 700;
+}
+
+.message-left-part h2 {
+  position: absolute;
+  top: 0%;
+  width: 100%;
+  text-align: center;
 }
 
 .intro-content {
@@ -239,20 +248,22 @@ main {
 }
 
 .message-left-part {
-  padding: 1rem;
+  position: relative;
   border-radius: 5px;
   background-color: #b28cedc7;
   width: 100%;
   box-shadow: #5353538b 1px 1px 5px;
-  height: 100vh;
-  overflow: scroll;
+  padding-top: 4rem;
+  height: calc(100vh - 4rem);
+}
+.receivedMessages-container {
+  height: 100%;
+  padding: 2rem;
+  overflow: auto;
 }
 
-.receivedMessages-container {
-}
 .message-result {
   display: flex;
-  padding: 1rem;
   gap: 2rem;
 }
 
@@ -263,6 +274,7 @@ main {
   background-color: #73e8e4c7;
   width: 100%;
   box-shadow: #5353538b 1px 1px 5px;
+  height: calc(100vh - 4rem);
 }
 
 .message-right-first-part {
@@ -282,7 +294,7 @@ main {
   font-size: 1.25rem;
   resize: none;
   width: 100%;
-  height: 25rem;
+  height: 15rem;
 }
 
 .formButton {
@@ -336,4 +348,10 @@ main {
 .login-content {
   display: flex;
   gap: 1rem;
+}
+
+.gender-register {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

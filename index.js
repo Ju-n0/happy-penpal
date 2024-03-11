@@ -11,7 +11,7 @@ const viewsDirectory = path.join(__dirname, "./views");
 app.set("views", viewsDirectory);
 
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -31,3 +31,10 @@ app.set("base_url", process.env.BASE_URL || "http://localhost");
 app.listen(app.get("port"), () => {
   console.log(`Listening on ${app.get("base_url")}:${app.get("port")}`);
 });
+
+// TODO: create login route + implement logic
+// TODO: implement search logic
+// TODO: create middlewares: errorHandler, authMiddleware, formValidationMiddlewares
+
+// TODO: migrate to ajax
+// TODO: use react for frontend

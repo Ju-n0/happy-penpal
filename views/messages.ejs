@@ -1,9 +1,9 @@
 <%- include('./partials/sides-bar.ejs') %>
 
 <main class="message-container">
-  <div>
+  <div class="message-left-part">
     <h2>Incoming messages</h2>
-    <div class="message-left-part">
+    <div class="receivedMessages-container">
       <% user.receivedMessages?.forEach(receivedMessage => { %>
       <div class="message-result">
         <div>
