@@ -1,65 +1,22 @@
 <%- include('./partials/sides-bar.ejs') %>
 
 <main class="message-container">
-  <div class="message-left-part">
+  <div>
     <h2>Incoming messages</h2>
-    <div class="message-result">
-      <div>
-        <img src="/images/monde-coeur.jpg" alt="" />
+    <div class="message-left-part">
+      <% user.receivedMessages?.forEach(receivedMessage => { %>
+      <div class="message-result">
+        <div>
+          <img src="/images/monde-coeur.jpg" alt="" />
+        </div>
+        <div class="message-result-introduction">
+          <span> <%=receivedMessage.content%></span>
+          <a href="#"> view message</a>
+        </div>
       </div>
-      <div class="message-result-introduction">
-        <span>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, tenetur! Reprehenderit,
-          temporibus aliquam! Alias placeat unde maxime possimus modi numquam est doloremque dolor,
-          nemo ipsam.</span
-        >
-        <a href="#"> view message</a>
-      </div>
-    </div>
-
-    <div class="message-result">
-      <div>
-        <img src="/images/monde-coeur.jpg" alt="" />
-      </div>
-      <div class="message-result-introduction">
-        <span>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, tenetur! Reprehenderit,
-          temporibus aliquam! Alias placeat unde maxime possimus modi numquam est doloremque dolor,
-          nemo ipsam.</span
-        >
-        <a href="#"> view message</a>
-      </div>
-    </div>
-
-    <div class="message-result">
-      <div>
-        <img src="/images/monde-coeur.jpg" alt="" />
-      </div>
-      <div class="message-result-introduction">
-        <span>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, tenetur! Reprehenderit,
-          temporibus aliquam! Alias placeat unde maxime possimus modi numquam est doloremque dolor,
-          nemo ipsam.</span
-        >
-        <a href="#"> view message</a>
-      </div>
-    </div>
-
-    <div class="message-result">
-      <div>
-        <img src="/images/monde-coeur.jpg" alt="" />
-      </div>
-      <div class="message-result-introduction">
-        <span>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, tenetur! Reprehenderit,
-          temporibus aliquam! Alias placeat unde maxime possimus modi numquam est doloremque dolor,
-          nemo ipsam.</span
-        >
-        <a href="#"> view message</a>
-      </div>
+      <% }) %>
     </div>
   </div>
-
   <div class="message-right-part">
     <div class="message-right-first-part">
       <span>Message recieved from ****</span> <span>on ****</span>

@@ -56,11 +56,13 @@ aside ul a {
 
 .friends-img {
   display: block;
-  width: 55rem;
+  max-width: 70rem;
+  margin-inline: auto;
 }
 .login-right-part {
   display: block;
   padding-top: 2rem;
+  width: 100%;
 }
 
 main {
@@ -121,7 +123,7 @@ main {
 }
 
 .ul-first-profile-part li {
-  padding-block: 1rem;
+  padding-block: 0.75rem;
 }
 
 .ul-first-profile-part #username {
@@ -130,10 +132,14 @@ main {
 }
 
 .languages-ul {
+  display: flex;
+  flex-direction: column;
   list-style: circle;
-  line-height: 0.5;
+  line-height: 0.1;
   padding-block: 0.5rem;
   padding-left: 2rem;
+  flex-wrap: wrap;
+  height: 100%;
 }
 .first-profile-part-rightside {
   margin-top: 2rem;
@@ -238,6 +244,11 @@ main {
   background-color: #b28cedc7;
   width: 100%;
   box-shadow: #5353538b 1px 1px 5px;
+  height: 100vh;
+  overflow: scroll;
+}
+
+.receivedMessages-container {
 }
 .message-result {
   display: flex;

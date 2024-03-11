@@ -12,8 +12,9 @@ const messageController = {
         receivedMessages: true,
       },
     });
+    console.log(user.receivedMessages);
     res.render("messages", {
-      user: { user },
+      user,
     });
   },
 };
