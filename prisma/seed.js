@@ -19,6 +19,167 @@ const languages = [
   "arabic",
 ];
 
+const countries = [
+  "Afghanistan",
+  "Albania",
+  "Algeria",
+  "Andorra",
+  "Angola",
+  "Argentina",
+  "Armenia",
+  "Australia",
+  "Austria",
+  "Azerbaijan",
+  "Bahamas",
+  "Bangladesh",
+  "Belarus",
+  "Belgium",
+  "Benin",
+  "Bolivia",
+  "Botswana",
+  "Brazil",
+  "Bulgaria",
+  "Burkina Faso",
+  "Burundi",
+  "Cabo Verde",
+  "Cambodia",
+  "Cameroon",
+  "Canada",
+  "Central African Republic",
+  "Chad",
+  "Chile",
+  "China",
+  "Colombia",
+  "Comoros",
+  "Congo",
+  "Costa Rica",
+  "Côte d’Ivoire",
+  "Croatia",
+  "Cuba",
+  "Cyprus",
+  "Czech Republic",
+  "Denmark",
+  "Dominica",
+  "Dominican Republic",
+  "Ecuador",
+  "Egypt",
+  "El Salvador",
+  "Equatorial Guinea",
+  "Estonia",
+  "Ethiopia",
+  "Fiji",
+  "Finland",
+  "France",
+  "Gabon",
+  "Georgia",
+  "Germany",
+  "Ghana",
+  "Greece",
+  "Grenada",
+  "Guatemala",
+  "Guinea",
+  "Guyana",
+  "Haiti",
+  "Honduras",
+  "Hungary",
+  "Iceland",
+  "India",
+  "Indonesia",
+  "Iran",
+  "Iraq",
+  "Ireland",
+  "Israel",
+  "Italy",
+  "Jamaica",
+  "Japan",
+  "Kazakhstan",
+  "Kenya",
+  "Korea, North",
+  "Korea, South",
+  "Kosovo",
+  "Kuwait",
+  "Laos",
+  "Latvia",
+  "Lebanon",
+  "Lesotho",
+  "Liberia",
+  "Libya",
+  "Liechtenstein",
+  "Lithuania",
+  "Luxembourg",
+  "Madagascar",
+  "Malawi",
+  "Malaysia",
+  "Maldives",
+  "Mali",
+  "Malta",
+  "Marshall Islands",
+  "Mauritania",
+  "Mauritius",
+  "Mexico",
+  "Moldova",
+  "Monaco",
+  "Mongolia",
+  "Montenegro",
+  "Morocco",
+  "Mozambique",
+  "Namibia",
+  "Nepal",
+  "Netherlands",
+  "New Zealand",
+  "Nicaragua",
+  "Niger",
+  "Nigeria",
+  "Norway",
+  "Pakistan",
+  "Panama",
+  "Paraguay",
+  "Peru",
+  "Philippines",
+  "Poland",
+  "Portugal",
+  "Qatar",
+  "Romania",
+  "Russia",
+  "Rwanda",
+  "Samoa",
+  "Saudi Arabia",
+  "Senegal",
+  "Serbia",
+  "Seychelles",
+  "Sierra Leone",
+  "Singapore",
+  "Slovakia",
+  "Slovenia",
+  "Somalia",
+  "South Africa",
+  "Spain",
+  "Sri Lanka",
+  "Sudan",
+  "Sweden",
+  "Switzerland",
+  "Syria",
+  "Taiwan",
+  "Tanzania",
+  "Thailand",
+  "Togo",
+  "Tunisia",
+  "Turkey",
+  "Turkmenistan",
+  "Uganda",
+  "Ukraine",
+  "United Arab Emirates",
+  "United Kingdom",
+  "United States",
+  "Uruguay",
+  "Vatican City",
+  "Venezuela",
+  "Vietnam",
+  "Yemen",
+  "Zambia",
+  "Zimbabwe",
+];
+
 const questions = [
   "What advice do you give to your love ones ?",
   "What did you prefer before ?",
@@ -34,6 +195,11 @@ async function resetMessages() {
 async function resetLanguages() {
   await prismaClient.language.deleteMany();
   await prismaClient.$executeRaw`ALTER SEQUENCE languages_id_seq RESTART WITH 1`;
+}
+
+async function resetCountries() {
+  await prismaClient.country.deleteMany();
+  await prismaClient.$executeRaw`ALTER SEQUENCE countries_id_seq RESTART WITH 1`;
 }
 
 async function resetPosts() {
@@ -63,22 +229,26 @@ async function resetDB() {
   await resetAnswers();
   await resetQuestions();
   await resetUsers();
+  await resetCountries();
 }
 
 async function seedUsers() {
+  const countries = await prismaClient.country.findMany();
   const users = [];
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 30; i++) {
     const gender = faker.name.gender(i % 2 === 0);
     const firstName = faker.name.firstName(gender);
     const lastName = faker.name.lastName(gender);
+
+    const country = faker.random.arrayElement(countries);
 
     const user = {
       username: faker.internet.userName(firstName, lastName),
       password: await bcrypt.hash("1234", 12),
       email: faker.internet.email(firstName, lastName),
-      gender,
-      country: faker.address.country(),
+      gender: gender.toLowerCase(),
+      countryId: country.id,
       birthdate: faker.date.between("1950-01-01", "2005-12-31"),
       presentation: faker.lorem.paragraphs(4),
       picture: "dog.jpg",
@@ -111,6 +281,16 @@ async function seedLanguages() {
         speakers: {
           connect: speakers,
         },
+      },
+    });
+  }
+}
+
+async function seedCountries() {
+  for (const country of countries) {
+    await prismaClient.country.create({
+      data: {
+        name: country,
       },
     });
   }
@@ -174,6 +354,7 @@ async function seedAnswers() {
 
 async function main() {
   await resetDB();
+  await seedCountries();
   await seedUsers();
   await seedLanguages();
   await seedMessages();

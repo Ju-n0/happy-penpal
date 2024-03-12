@@ -4,139 +4,58 @@
   <div class="search-first-part">
     <div class="search-left-side">
       <h2>What you're looking for :</h2>
-      <form action="">
+      <form method="POST" action="/search">
         <div>
           <span>Gender : </span>
-          <input type="radio" name="gender" id="gender-male" value="male" />
+          <input type="radio" name="gender" id="gender-male" value="male" <%= locals.gender ===
+          "male" ? "checked" : ""%> />
           <label for="gender-male">male</label>
-          <input type="radio" name="gender" id="gender-female" value="female" />
+          <input type="radio" name="gender" id="gender-female" value="female" <%= locals.gender ===
+          "female" ? "checked" : ""%> />
           <label for="gender-female">female</label>
         </div>
         <div>
           <span>
             <span>Age: between</span>
-            <select name="age" id="">
-              <!-- (option[value="$@18"]{$@18})*43 -->
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
-              <option value="25">25</option>
-              <option value="26">26</option>
-              <option value="27">27</option>
-              <option value="28">28</option>
-              <option value="29">29</option>
-              <option value="30">30</option>
-              <option value="31">31</option>
-              <option value="32">32</option>
-              <option value="33">33</option>
-              <option value="34">34</option>
-              <option value="35">35</option>
-              <option value="36">36</option>
-              <option value="37">37</option>
-              <option value="38">38</option>
-              <option value="39">39</option>
-              <option value="40">40</option>
-              <option value="41">41</option>
-              <option value="42">42</option>
-              <option value="43">43</option>
-              <option value="44">44</option>
-              <option value="45">45</option>
-              <option value="46">46</option>
-              <option value="47">47</option>
-              <option value="48">48</option>
-              <option value="49">49</option>
-              <option value="50">50</option>
-              <option value="51">51</option>
-              <option value="52">52</option>
-              <option value="53">53</option>
-              <option value="54">54</option>
-              <option value="55">55</option>
-              <option value="56">56</option>
-              <option value="57">57</option>
-              <option value="58">58</option>
-              <option value="59">59</option>
-              <option value="60">60</option>
+            <select name="minAge" id="">
+              <% for (let i=18; i<86; i++) { %>
+              <option value="<%=i%>" <%=+locals.minAge 
+                === i ? "selected" : "" %> > <%=i%>
+              </option>
+              <% } %>
             </select></span
           >
           <span>
             <span> and</span>
-            <select name="age" id="">
-              <!-- (option[value="$@18"]{$@18})*43 -->
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
-              <option value="25">25</option>
-              <option value="26">26</option>
-              <option value="27">27</option>
-              <option value="28">28</option>
-              <option value="29">29</option>
-              <option value="30">30</option>
-              <option value="31">31</option>
-              <option value="32">32</option>
-              <option value="33">33</option>
-              <option value="34">34</option>
-              <option value="35">35</option>
-              <option value="36">36</option>
-              <option value="37">37</option>
-              <option value="38">38</option>
-              <option value="39">39</option>
-              <option value="40">40</option>
-              <option value="41">41</option>
-              <option value="42">42</option>
-              <option value="43">43</option>
-              <option value="44">44</option>
-              <option value="45">45</option>
-              <option value="46">46</option>
-              <option value="47">47</option>
-              <option value="48">48</option>
-              <option value="49">49</option>
-              <option value="50">50</option>
-              <option value="51">51</option>
-              <option value="52">52</option>
-              <option value="53">53</option>
-              <option value="54">54</option>
-              <option value="55">55</option>
-              <option value="56">56</option>
-              <option value="57">57</option>
-              <option value="58">58</option>
-              <option value="59">59</option>
-              <option value="60">60</option>
+            <select name="maxAge" id="">
+              <% for (let i=18; i<86; i++) { %>
+              <option value="<%=i%>" <%=+locals.maxAge
+                === i ? "selected" : ""%> > <%=i%>
+              </option>
+              <% } %>
             </select></span
           >
         </div>
+
         <div>
           <span>Country</span>
           <select name="country" id="">
-            <!-- (option[value="$@18"]{$@18})*43 -->
-            <option value="France">France</option>
-            <option value="United-Kingdom">United-Kingdom</option>
-            <option value="USA">USA</option>
-            <option value="Italia">Italia</option>
-            <option value="Spain">Spain</option>
-            <option value="Portugal">Portugal</option>
-            <option value="Italy">Italy</option>
-            <option value="Russia">Russia</option>
-            <option value="China">China</option>
-            <option value="Japan">Japan</option>
-            <option value="Norway">Norway</option>
-            <option value="Canada">Canada</option>
+            <% if (locals.countries?.length) { %> <% countries.forEach(country => {%>
+            <option value="<%=country.name%>" <%=locals.country
+              === country.name ? "selected" : ""%> ><%=country.name%>
+            </option>
+            <% }); %> <% } %>
           </select>
         </div>
         <div>
-          <input type="checkbox" name="profile-picture" id="" />
-          <label for="profile-picture">only members with a profile picture</label>
+          <input type="checkbox" name="hasPicture" id="hasPicture" <%= locals.hasPicture ? "checked"
+          : ""%>/>
+          <label for="hasPicture">only members with a profile picture</label>
         </div>
         <div>
-          <input type="checkbox" name="profile-description" id="" />
-          <label for="profile-description">only members with a profile presentation </label>
+          <input type="checkbox" name="hasPresentation" id="hasPresentation" <%=
+          locals.hasPresentation ? "checked" : ""%>/>
+          <label for="hasPresentation">only members with a profile presentation </label>
         </div>
         <button class="formButton">Search penpal</button>
       </form>
@@ -145,63 +64,25 @@
       <img src="/images/greetings-friends.svg" alt="" />
     </div>
   </div>
+  <% if (locals.profiles?.length) { %>
   <div class="search-second-part">
-    <div class="search-result">
-      <div>
-        <img src="/images/monde-coeur.jpg" alt="" />
-      </div>
-      <div class="search-result-introduction">
-        <span>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, tenetur! Reprehenderit,
-          temporibus aliquam! Alias placeat unde maxime possimus modi numquam est doloremque dolor,
-          nemo ipsam.</span
-        >
-        <a href="#"> visit profile</a>
-      </div>
-    </div>
+    <% profiles.forEach(profile => {%>
 
     <div class="search-result">
-      <div>
-        <img src="/images/monde-coeur.jpg" alt="" />
-      </div>
+      <div><img src="/images/<%= profile.picture || "rabbit.jpg" %>" alt="" /></div>
       <div class="search-result-introduction">
+        <span><%=profile.username%> </span>
         <span>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, tenetur! Reprehenderit,
-          temporibus aliquam! Alias placeat unde maxime possimus modi numquam est doloremque dolor,
-          nemo ipsam.</span
-        >
-        <a href="#"> visit profile</a>
+          <% if (profile.presentation) { %> <%=profile.presentation%> <% } else { %>
+          <p>No presentation added</p>
+          <% } %>
+        </span>
+        <a href="/profile/<%=profile.id%>"> visit profile</a>
       </div>
     </div>
-
-    <div class="search-result">
-      <div>
-        <img src="/images/monde-coeur.jpg" alt="" />
-      </div>
-      <div class="search-result-introduction">
-        <span>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, tenetur! Reprehenderit,
-          temporibus aliquam! Alias placeat unde maxime possimus modi numquam est doloremque dolor,
-          nemo ipsam.</span
-        >
-        <a href="#"> visit profile</a>
-      </div>
-    </div>
-
-    <div class="search-result">
-      <div>
-        <img src="/images/monde-coeur.jpg" alt="" />
-      </div>
-      <div class="search-result-introduction">
-        <span>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, tenetur! Reprehenderit,
-          temporibus aliquam! Alias placeat unde maxime possimus modi numquam est doloremque dolor,
-          nemo ipsam.</span
-        >
-        <a href="#"> visit profile</a>
-      </div>
-    </div>
+    <% }) %>
   </div>
+  <% } %>
 </main>
 
 <%- include('./partials/footer.ejs') %>

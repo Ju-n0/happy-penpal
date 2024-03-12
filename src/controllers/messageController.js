@@ -4,8 +4,7 @@ const messageController = {
   async getOne(req, res) {
     const user = await prismaClient.user.findUnique({
       where: {
-        // id: +req.session.userId,
-        id: +1,
+        id: +req.session.user_obj?.id,
       },
       include: {
         sentMessages: true,

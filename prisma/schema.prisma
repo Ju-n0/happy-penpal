@@ -19,7 +19,8 @@ model User {
   password     String
   email        String    @unique @db.VarChar(255)
   gender       String
-  country      String    @db.VarChar(50)
+  countryId    Int       @map("country_id")
+  country      Country   @relation(fields: [countryId], references: [id])
   birthdate    DateTime
   presentation String?
   picture      String?
@@ -72,6 +73,17 @@ model Language {
 
   @@index([name])
   @@map("languages")
+}
+
+model Country {
+  id               Int       @id @default(autoincrement())
+  name             String    @unique
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime? @map("updated_at")
+  countryResidents User[]
+
+  @@index([name])
+  @@map("countries")
 }
 
 model Question {
