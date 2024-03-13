@@ -7,20 +7,23 @@ const {
   registerRouter,
   loginRouter,
 } = require("./routes/index");
-const { prismaClient } = require("./database");
+const dayjs = require("dayjs");
+dayjs.extend(require("dayjs/plugin/relativeTime"));
 
 const router = new Router();
 
-// router.use(async (req, res, next) => {
-//   // TODO: temporary solution (avoids login)
-//   req.session.user_obj = await prismaClient.user.findFirst({
-//     include: { receivedMessages: true, languages: true },
-//   });
+router.use((req, res, next) => {
+  if (!req.session.user_obj) {
+    return next();
+  }
+  const user = req.session.user_obj;
+  res.locals.user = {
+    ...user,
+    age: dayjs().diff(user.birthdate, "year"),
+  };
 
-//   res.locals.user = req.session.user_obj;
-
-//   next();
-// });
+  next();
+});
 
 router.get("/", appController.index);
 

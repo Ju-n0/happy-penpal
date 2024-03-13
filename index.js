@@ -31,8 +31,7 @@ app.set("base_url", process.env.BASE_URL || "http://localhost");
 app.listen(app.get("port"), () => {
   console.log(`Listening on ${app.get("base_url")}:${app.get("port")}`);
 });
-// TODO fix issue with search profile on minAge and maxAge when equal
-// TODO: create middlewares: errorHandler, authMiddleware, formValidationMiddlewares
+// TODO: create middlewares: errorHandler, formValidationMiddlewares
 
 // TODO: migrate to ajax
 // TODO: use react for frontend

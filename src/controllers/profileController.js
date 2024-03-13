@@ -3,12 +3,8 @@ const dayjs = require("dayjs");
 dayjs.extend(require("dayjs/plugin/relativeTime"));
 
 const profileController = {
-  async getProfile(req, res) {
-    const userId = +req.session.user_obj?.id;
-
-    if (!userId) {
-      return res.redirect("/");
-    }
+  async showProfile(req, res) {
+    const userId = +req.session.user_obj.id;
 
     const user = await prismaClient.user.findUnique({
       where: {

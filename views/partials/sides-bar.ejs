@@ -18,6 +18,7 @@
       <div class="logo-aside">
         <a href="/"><img src="/images/heartworld.crop.jpeg" alt="logo penpal" /></a>
       </div>
+      <% if (locals.user) { %>
       <nav>
         <ul>
           <li><a href="">Edit my profile</a></li>
@@ -28,6 +29,7 @@
           <li><a href="/logout">log out</a></li>
         </ul>
       </nav>
+      <% } %>
     </aside>
   </body>
 </html>
